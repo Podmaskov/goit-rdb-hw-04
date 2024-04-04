@@ -1,0 +1,97 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2759
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww16260\viewh20700\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \
+===4.1===\
+\
+SELECT COUNT(*) AS row_count FROM order_details\
+INNER JOIN orders ON order_details.order_id = orders.id\
+INNER JOIN customers ON orders.customer_id = customers.id\
+INNER JOIN products ON order_details.product_id = products.id\
+INNER JOIN categories ON products.category_id = categories.id\
+INNER JOIN employees ON orders.employee_id = employees.employee_id\
+INNER JOIN shippers ON orders.shipper_id = shippers.id\
+INNER JOIN suppliers ON products.supplier_id = suppliers.id;\
+\
+===4.2===\
+\
+SELECT COUNT(*) AS row_count FROM order_details\
+RIGHT JOIN orders ON order_details.order_id = orders.id\
+INNER JOIN customers ON orders.customer_id = customers.id\
+RIGHT JOIN products ON order_details.product_id = products.id\
+INNER JOIN categories ON products.category_id = categories.id\
+LEFT JOIN employees ON orders.employee_id = employees.employee_id\
+INNER JOIN shippers ON orders.shipper_id = shippers.id\
+LEFT JOIN suppliers ON products.supplier_id = suppliers.id;\
+\
+=== \uc0\u1042 \u1080 \u1089 \u1085 \u1086 \u1074 \u1086 \u1082 ===\
+\
+\uc0\u1047 \u1072 \u1084 \u1110 \u1085 \u1072  INNER JOIN \u1085 \u1072  LEFT JOIN \u1072 \u1073 \u1086  RIGHT JOIN \u1085 \u1077  \u1087 \u1088 \u1080 \u1079 \u1074 \u1086 \u1076 \u1080 \u1090 \u1100  \u1076 \u1086  \u1079 \u1084 \u1110 \u1085 \u1080  \u1082 \u1110 \u1083 \u1100 \u1082 \u1086 \u1089 \u1090 \u1110  \u1088 \u1103 \u1076 \u1082 \u1110 \u1074  \u1091  \u1088 \u1077 \u1079 \u1091 \u1083 \u1100 \u1090 \u1072 \u1090 \u1110 .\
+\uc0\u1062 \u1077  \u1086 \u1079 \u1085 \u1072 \u1095 \u1072 \u1108 , \u1097 \u1086  \u1074 \u1089 \u1110  \u1079 \u1085 \u1072 \u1095 \u1077 \u1085 \u1085 \u1103 , \u1103 \u1082 \u1110  \u1087 \u1088 \u1080 \u1108 \u1076 \u1085 \u1091 \u1102 \u1090 \u1100 \u1089 \u1103 , \u1084 \u1072 \u1102 \u1090 \u1100  \u1074 \u1110 \u1076 \u1087 \u1086 \u1074 \u1110 \u1076 \u1085 \u1110 \u1089 \u1090 \u1100  \u1091  \u1079 \'92\u1108 \u1076 \u1085 \u1072 \u1085 \u1110 \u1081  \u1090 \u1072 \u1073 \u1083 \u1080 \u1094 \u1110 , \u1085 \u1077 \u1079 \u1072 \u1083 \u1077 \u1078 \u1085 \u1086  \u1074 \u1110 \u1076  \u1090 \u1080 \u1087 \u1091  \u1079 \'92\u1108 \u1076 \u1085 \u1072 \u1085 \u1085 \u1103 .\
+===4.3===\
+\
+SELECT * FROM order_details\
+INNER JOIN orders ON order_details.order_id = orders.id\
+INNER JOIN customers ON orders.customer_id = customers.id\
+INNER JOIN products ON order_details.product_id = products.id\
+INNER JOIN categories ON products.category_id = categories.id\
+INNER JOIN employees ON orders.employee_id = employees.employee_id\
+INNER JOIN shippers ON orders.shipper_id = shippers.id\
+INNER JOIN suppliers ON products.supplier_id = suppliers.id\
+WHERE employees.employee_id>3 AND employees.employee_id<=10;\
+\
+===4.4===\
+\
+SELECT categories.name, COUNT(*) AS orders_count, AVG(order_details.quantity) AS avg_quantity\
+FROM order_details\
+INNER JOIN orders ON order_details.order_id = orders.id\
+INNER JOIN customers ON orders.customer_id = customers.id\
+INNER JOIN products ON order_details.product_id = products.id\
+INNER JOIN categories ON products.category_id = categories.id\
+INNER JOIN employees ON orders.employee_id = employees.employee_id\
+INNER JOIN shippers ON orders.shipper_id = shippers.id\
+INNER JOIN suppliers ON products.supplier_id = suppliers.id\
+GROUP BY categories.name;\
+\
+===4.5===\
+\
+SELECT categories.name, COUNT(*) AS orders_count, AVG(order_details.quantity) AS avg_quantity FROM order_details\
+INNER JOIN orders ON order_details.order_id = orders.id\
+INNER JOIN customers ON orders.customer_id = customers.id\
+INNER JOIN products ON order_details.product_id = products.id\
+INNER JOIN categories ON products.category_id = categories.id\
+INNER JOIN employees ON orders.employee_id = employees.employee_id\
+INNER JOIN shippers ON orders.shipper_id = shippers.id\
+INNER JOIN suppliers ON products.supplier_id = suppliers.id\
+GROUP BY categories.name HAVING avg_quantity>21;\
+\
+===4.6===\
+\
+SELECT categories.name, COUNT(*) AS orders_count, AVG(order_details.quantity) AS avg_quantity FROM order_details\
+INNER JOIN orders ON order_details.order_id = orders.id\
+INNER JOIN customers ON orders.customer_id = customers.id\
+INNER JOIN products ON order_details.product_id = products.id\
+INNER JOIN categories ON products.category_id = categories.id\
+INNER JOIN employees ON orders.employee_id = employees.employee_id\
+INNER JOIN shippers ON orders.shipper_id = shippers.id\
+INNER JOIN suppliers ON products.supplier_id = suppliers.id\
+GROUP BY categories.name HAVING avg_quantity>21\
+ORDER BY orders_count DESC;\
+\
+===4.7===\
+\
+SELECT categories.name, COUNT(*) AS orders_count, AVG(order_details.quantity) AS avg_quantity FROM order_details\
+INNER JOIN orders ON order_details.order_id = orders.id\
+INNER JOIN customers ON orders.customer_id = customers.id\
+INNER JOIN products ON order_details.product_id = products.id\
+INNER JOIN categories ON products.category_id = categories.id\
+INNER JOIN employees ON orders.employee_id = employees.employee_id\
+INNER JOIN shippers ON orders.shipper_id = shippers.id\
+INNER JOIN suppliers ON products.supplier_id = suppliers.id\
+GROUP BY categories.name HAVING avg_quantity>21\
+ORDER BY orders_count DESC\
+LIMIT 4 OFFSET 1;}
